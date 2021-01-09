@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from "gatsby-theme-material-ui";
+import { Link } from 'gatsby'
 
 const Pagination = ({ pageContext }) => {
     const { previousPagePath, nextPagePath, humanPageNumber, numberOfPages } = pageContext
@@ -11,17 +11,17 @@ const Pagination = ({ pageContext }) => {
                 {previousPagePath && (
 
                     <Link to={previousPagePath} rel="prev">
-                            Předchozí
+                            Previous
                     </Link>
 
                 )}
             </div>
-            {numberOfPages > 1 && <div className="pagination-location">Stránka číslo {humanPageNumber} z {numberOfPages} stránek</div>}
+            {numberOfPages > 1 && <div className="pagination-location">Page {humanPageNumber} of {numberOfPages}</div>}
             <div>
                 {nextPagePath && (
 
                     <Link to={nextPagePath} rel="next">
-                            Další
+                            Next
                     </Link>
                 )}
             </div>

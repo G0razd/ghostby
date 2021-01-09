@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
+import { Link, StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import { Link } from "gatsby-theme-material-ui"
-import { makeStyles } from "@material-ui/core/styles"
-import { AppBar, Toolbar, Grid, Button, Container } from "@material-ui/core"
+
+import { Navigation } from '.'
 import config from '../../utils/siteConfig'
 
 // Styles
@@ -19,27 +18,7 @@ import '../../styles/app.css'
 * styles, and meta data for each page.
 *
 */
-const useStyles = makeStyles((theme) => {
-    return {
-        logo: {
-            width: 90,
-        },
-        linkRow: {
-            flexGrow: 1,
-            marginRight: theme.spacing(1),
-        },
-        link: {
-            textAlign: `center`,
-            fontSize: 14,
-            "&Padding": {
-                padding: theme.spacing(1.2),
-            },
-        },
-    }
-})
-
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
-    const classes = useStyles()
     const site = data.allGhostSettings.edges[0].node
     const twitterUrl = site.twitter ? `https://twitter.com/${site.twitter.replace(/^@/, ``)}` : null
     const facebookUrl = site.facebook ? `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}` : null
@@ -52,91 +31,68 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                 <body className={bodyClass} />
             </Helmet>
 
-            <Container maxWidth="xl" disableGutters>
-                {/* The main header section on top of the screen */}                        
-                    <AppBar position="static" color="default">
-                        <Toolbar>
-                            <Link to="/">
-                                {site.logo ? (
-                                    <img
-                                        className={classes.logo}
-                                        src={site.logo}
-                                        alt={site.title}
-                                    />
-                                ) : (
-                                    <Img
-                                        fluid={
-                                            data.file.childImageSharp
-                                                .fluid
+            <div className="viewport">
+
+                <div className="viewport-top">
+                    {/* The main header section on top of the screen */}
+                    <header className="site-head" style={{ ...site.cover_image && { backgroundImage: `url(${site.cover_image})` } }}>
+                        <div className="container">
+                            <div className="site-mast">
+                                <div className="site-mast-left">
+                                    <Link to="/">
+                                        {site.logo ?
+                                            <img className="site-logo" src={site.logo} alt={site.title} />
+                                            : <Img fixed={data.file.childImageSharp.fixed} alt={site.title} />
                                         }
-                                        alt={site.title}
-                                    />
-                                )}
-                            </Link>
-                            <Grid
-                                container
-                                sm={0}
-                                md
-                                direction="row"
-                                justify="flex-end"
-                                alignItems="center"
-                            >
-                                <Grid
-                                    item
-                                    className={classes.linkRow}
-                                    container
-                                    md={5}
-                                    lg={3}
-                                    direction="row"
-                                    alignItems="center"
-                                >
-                                    {site.navigation.map(
-                                        (navItem, i) => (
-                                            <Grid item md key={i}>
-                                                <Button
-                                                    href={navItem.url}
-                                                    className={
-                                                        classes.link
-                                                    }
-                                                >
-                                                    {navItem.label}
-                                                </Button>
-                                            </Grid>
-                                        )
-                                    )}
-                                </Grid>
+                                    </Link>
+                                </div>
+                                <div className="site-mast-right">
+                                    { site.twitter && <a href={ twitterUrl } className="site-nav-item" target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/twitter.svg" alt="Twitter" /></a>}
+                                    { site.facebook && <a href={ facebookUrl } className="site-nav-item" target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/facebook.svg" alt="Facebook" /></a>}
+                                    <a className="site-nav-item" href={ `https://feedly.com/i/subscription/feed/${config.siteUrl}/rss/` } target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/rss.svg" alt="RSS Feed" /></a>
+                                </div>
+                            </div>
+                            { isHome ?
+                                <div className="site-banner">
+                                    <h1 className="site-banner-title">{site.title}</h1>
+                                    <p className="site-banner-desc">{site.description}</p>
+                                </div> :
+                                null}
+                            <nav className="site-nav">
+                                <div className="site-nav-left">
+                                    {/* The navigation items as setup in Ghost */}
+                                    <Navigation data={site.navigation} navClass="site-nav-item" />
+                                </div>
+                                <div className="site-nav-right">
+                                    <Link className="site-nav-button" to="/about">About</Link>
+                                </div>
+                            </nav>
+                        </div>
+                    </header>
 
-                                <Grid item sm={1}>
-                                    <Button
-                                        color="primary"
-                                        className={classes.link}
-                                        variant="contained"
-                                    >
-                                                Přihlásit{` `}
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Toolbar>
-                    </AppBar>
+                    <main className="site-main">
+                        {/* All the main content gets inserted here, index.js, post.js */}
+                        {children}
+                    </main>
 
-                <main className="site-main">
-                    {/* All the main content gets inserted here, index.js, post.js */}
-                    {children}
-                </main>
+                </div>
 
                 <div className="viewport-bottom">
                     {/* The footer at the very bottom of the screen */}
                     <footer className="site-foot">
                         <div className="site-foot-nav container">
                             <div className="site-foot-nav-left">
-                                <Link to="/">{site.title}</Link> © 2020 &mdash;
-                                {new Date().getFullYear()}
+                                <Link to="/">{site.title}</Link> © 2019 &mdash; Published with <a className="site-foot-nav-item" href="https://ghost.org" target="_blank" rel="noopener noreferrer">Ghost</a>
+                            </div>
+                            <div className="site-foot-nav-right">
+                                <Navigation data={site.navigation} navClass="site-foot-nav-item" />
                             </div>
                         </div>
                     </footer>
+
                 </div>
-            
-            </Container>
+            </div>
+
         </>
     )
 }

@@ -1,10 +1,10 @@
 {
   "development": {
-    "apiUrl": "https://csutv-ghost.herokuapp.com",
-    "contentApiKey": "47e204eca8c1cfd6a9e044b8d9"
+    "apiUrl": "https://gg.demo.cloudron.io",
+    "contentApiKey": "8abf32f751801a1e84fc733494"
   },
   "production": {
-    "apiUrl": "https://csutv-ghost.herokuapp.com",
-    "contentApiKey": "47e204eca8c1cfd6a9e044b8d9"
+    "apiUrl": "https://gg.demo.cloudron.io",
+    "contentApiKey": "8abf32f751801a1e84fc733494"
   }
 }
