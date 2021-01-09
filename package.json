@@ -7,7 +7,7 @@
   "homepage": "https://csutv.cz",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tryghost/gatsby-starter-ghost.git"
+    "url": "git+https://github.com/G0razd/ghostby.git"
   },
   "resolutions": {
     "sharp": "0.26.0"
