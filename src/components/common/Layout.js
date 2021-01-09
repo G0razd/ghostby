@@ -63,15 +63,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                         src={site.logo}
                                         alt={site.title}
                                     />
-                                ) : (
-                                    <Img
-                                        fluid={
-                                            data.file.childImageSharp
-                                                .fluid
-                                        }
-                                        alt={site.title}
-                                    />
-                                )}
+                                ) : null}
                             </Link>
                             <Grid
                                 container
@@ -146,7 +138,6 @@ DefaultLayout.propTypes = {
     bodyClass: PropTypes.string,
     isHome: PropTypes.bool,
     data: PropTypes.shape({
-        file: PropTypes.object,
         allGhostSettings: PropTypes.object.isRequired,
     }).isRequired,
 }
@@ -159,13 +150,6 @@ const DefaultLayoutSettingsQuery = props => (
                     edges {
                         node {
                             ...GhostSettingsFields
-                        }
-                    }
-                }
-                file(relativePath: {eq: "ghost-icon.png"}) {
-                    childImageSharp {
-                        fixed(width: 30, height: 30) {
-                            ...GatsbyImageSharpFixed
                         }
                     }
                 }
