@@ -71,7 +71,6 @@ export const pageQuery = graphql`
             sort: { order: DESC, fields: [published_at] }
             limit: $limit
             skip: $skip
-            after: 1
         ) {
             edges {
                 node {
