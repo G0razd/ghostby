@@ -32,7 +32,7 @@ const Page = ({ data, location }) => {
 
                         {/* The main page content */}
                         <section
-                            className="content-body load-external-scripts"
+                            className="load-external-scripts"
                             dangerouslySetInnerHTML={{ __html: page.html }}
                         />
                     </article>

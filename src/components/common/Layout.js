@@ -1,135 +1,86 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Helmet } from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import { Link } from "gatsby-theme-material-ui"
-import { makeStyles } from "@material-ui/core/styles"
-import { AppBar, Toolbar, Grid, Button, Container } from "@material-ui/core"
-import config from '../../utils/siteConfig'
+import React from "react"
+import PropTypes from "prop-types"
+import { Helmet } from "react-helmet"
+import { StaticQuery, graphql } from "gatsby"
+import { Link } from "gatsby"
 
 // Styles
-import '../../styles/app.css'
+import "../../styles/app.css"
 
 /**
-* Main layout component
-*
-* The Layout component wraps around each page and template.
-* It also provides the header, footer as well as the main
-* styles, and meta data for each page.
-*
-*/
-const useStyles = makeStyles((theme) => {
-    return {
-        logo: {
-            width: 90,
-        },
-        linkRow: {
-            flexGrow: 1,
-            marginRight: theme.spacing(1),
-        },
-        link: {
-            textAlign: `center`,
-            fontSize: 14,
-            "&Padding": {
-                padding: theme.spacing(1.2),
-            },
-        },
-    }
-})
+ * Main layout component
+ *
+ * The Layout component wraps around each page and template.
+ * It also provides the header, footer as well as the main
+ * styles, and meta data for each page.
+ *
+ */
 
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
-    const classes = useStyles()
     const site = data.allGhostSettings.edges[0].node
-    const twitterUrl = site.twitter ? `https://twitter.com/${site.twitter.replace(/^@/, ``)}` : null
-    const facebookUrl = site.facebook ? `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}` : null
+    const facebookUrl = site.facebook
+        ? `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}`
+        : null
 
     return (
-        <>
+        <div className="bg-bgcolor overflow-x-hidden scrollbar-thin scrollbar scrollbar-thumb-rounded scrollbar-thumb-gray-700 scrollbar-track-gray-300">
             <Helmet>
                 <html lang={site.lang} />
                 <style type="text/css">{`${site.codeinjection_styles}`}</style>
                 <body className={bodyClass} />
             </Helmet>
-
-            <Container maxWidth="xl" disableGutters>
-                {/* The main header section on top of the screen */}                        
-                    <AppBar position="static" color="default">
-                        <Toolbar>
-                            <Link to="/">
-                                {site.logo ? (
-                                    <img
-                                        className={classes.logo}
-                                        src={site.logo}
-                                        alt={site.title}
-                                    />
-                                ) : null}
-                            </Link>
-                            <Grid
-                                container
-                                sm={0}
-                                md
-                                direction="row"
-                                justify="flex-end"
-                                alignItems="center"
-                            >
-                                <Grid
-                                    item
-                                    className={classes.linkRow}
-                                    container
-                                    md={5}
-                                    lg={3}
-                                    direction="row"
-                                    alignItems="center"
+            {/* The main header section on top of the screen */}
+            <header className="bg-gray-50 px-6 py-4 shadow mb-4">
+                <div className="flex flex-col container mx-auto md:flex-row md:items-center md:justify-between">
+                    <Link to="/">
+                        {site.logo ? (
+                            <img
+                                className="object-contain h-20 feather feather-image"
+                                src={site.logo}
+                                alt={site.title}
+                            />
+                        ) : (
+                            isHome + facebookUrl
+                        )}
+                    </Link>
+                    <div className="md:flex flex-col md:flex-row md:-mx-4 hidden justify-self-end items-center space-x-5 ">
+                        {site.navigation.map((navItem, i) => (
+                            <div key={i}>
+                                <Link
+                                    className=" divide-x block hover:no-underline m-2 uppercase leading-6 font-medium text-gray-900 hover:text-gray-800 md:mx-4  "
+                                    to={navItem.url}
                                 >
-                                    {site.navigation.map(
-                                        (navItem, i) => (
-                                            <Grid item md key={i}>
-                                                <Button
-                                                    href={navItem.url}
-                                                    className={
-                                                        classes.link
-                                                    }
-                                                >
-                                                    {navItem.label}
-                                                </Button>
-                                            </Grid>
-                                        )
-                                    )}
-                                </Grid>
-
-                                <Grid item sm={1}>
-                                    <Button
-                                        color="primary"
-                                        className={classes.link}
-                                        variant="contained"
-                                    >
-                                                Přihlásit{` `}
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Toolbar>
-                    </AppBar>
-
-                <main className="site-main">
-                    {/* All the main content gets inserted here, index.js, post.js */}
-                    {children}
-                </main>
-
-                <div className="viewport-bottom">
-                    {/* The footer at the very bottom of the screen */}
-                    <footer className="site-foot">
-                        <div className="site-foot-nav container">
-                            <div className="site-foot-nav-left">
-                                <Link to="/">{site.title}</Link> © 2020 &mdash;
-                                {new Date().getFullYear()}
+                                    {navItem.label}
+                                </Link>
                             </div>
+                        ))}
+                        <div>
+                            <button className="mx-3 inline-block px-6 py-4 hover:bg-primary-light font-medium leading-6 text-center text-gray-50 uppercase transition border-2 border-primary rounded-md bg-primary focus:outline-none">
+                                Přihlásit
+                            </button>
                         </div>
-                    </footer>
+                    </div>
                 </div>
-            
-            </Container>
-        </>
+            </header>
+            <main className="container mx-auto min-h-80 my-20">
+                {/* All the main content gets inserted here, index.js, post.js */}
+                {children}
+            </main>
+            <div className="viewport-bottom">
+                {/* The footer at the very bottom of the screen */}
+                <footer className=" px-6 py-5 bg-primary">
+                    <div className="site-foot-nav container">
+                        <div className="site-foot-nav-left text-gray-300 font-medium">
+                            <Link  to="/">
+                                {site.title}
+                            </Link>{` `}
+                            © 2020 &mdash; {}
+                            {new Date().getFullYear()}
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
     )
 }
 

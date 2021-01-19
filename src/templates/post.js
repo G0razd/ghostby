@@ -29,15 +29,15 @@ const Post = ({ data, location }) => {
                 <div className="container">
                     <article className="content">
                         { post.feature_image ?
-                            <figure className="post-feature-image">
+                            <figure className="post-feature-image rounded-full  shadow-sm">
                                 <img src={ post.feature_image } alt={ post.title } />
                             </figure> : null }
-                        <section className="post-full-content">
+                        <section className="container">
                             <h1 className="content-title">{post.title}</h1>
-
+                            <hr className=" w-100" />
                             {/* The main post content */ }
                             <section
-                                className="content-body load-external-scripts"
+                                className="prose-xl text-4xl load-external-scripts"
                                 dangerouslySetInnerHTML={{ __html: post.html }}
                             />
                         </section>

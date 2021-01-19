@@ -21,7 +21,10 @@ try {
             : ghostConfig.production
 
     if (!apiUrl || !contentApiKey || contentApiKey.match(/<key>/)) {
-        throw new Error(`GHOST_API_URL and GHOST_CONTENT_API_KEY are required to build. Check the README.`); // eslint-disable-line
+        // eslint-disable-next-line no-unsafe-finally
+        throw new Error(
+            `GHOST_API_URL and GHOST_CONTENT_API_KEY are required to build. Check the README.`
+        ) // eslint-disable-line
     }
 }
 
@@ -32,7 +35,7 @@ if (
 ) {
     throw new Error(
         `siteUrl can't be localhost and needs to be configured in siteConfig. Check the README.`
-    ); // eslint-disable-line
+    ) // eslint-disable-line
 }
 
 /**
@@ -50,32 +53,9 @@ module.exports = {
         /**
          *  Styling Plugins
          */
-        {
-            resolve: `gatsby-theme-material-ui`,
-            options: {
-                stylesProvider: {
-                    injectFirst: true,
-                },
-                webFontsConfig: {
-                    fonts: {
-                        google: [
-                            {
-                                family: `Lato`,
-                                variants: [
-                                    `100`,
-                                    `300`,
-                                    `400`,
-                                    `700`,
-                                    `900`,
-                                
-                                ],
-                            },
-                        ],
-                    },
-                },
-            },
-        },
+        `gatsby-plugin-postcss`,
         `gatsby-plugin-styled-components`,
+        `gatsby-plugin-fontawesome-css`,
 
         /**
          *  Content Plugins

@@ -18,7 +18,9 @@ what's here to work the way you'd like it to.
 
 /* Variables
 /* ---------------------------------------------------------- */
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
 
     /* Colours */
@@ -169,13 +171,7 @@ html {
 *:after {
     box-sizing: inherit;
 }
-a {
-    background-color: transparent;
-}
-a:active,
-a:hover {
-    outline: 0;
-}
+
 b,
 strong {
     font-weight: bold;
@@ -300,7 +296,7 @@ th {
 
 html {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-size: 62.5%;
     background: var(--color-base);
 
@@ -787,10 +783,7 @@ h6 {
 }
 
 
-.post-card-title {
-    margin: 0 0 10px 0;
-    padding: 0;
-}
+
 
 .post-card-excerpt {
     font-size: 1.6rem;
