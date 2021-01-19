@@ -71,7 +71,7 @@ export const pageQuery = graphql`
             sort: { order: DESC, fields: [published_at] }
             limit: $limit
             skip: $skip
-            filter: { featured: { eq: false } }
+            after: 1
         ) {
             edges {
                 node {
@@ -81,8 +81,7 @@ export const pageQuery = graphql`
         }
         featured: allGhostPost(
             sort: { order: DESC, fields: [published_at] }
-            limit: $limit
-            skip: $skip
+            limit: 1
             filter: { featured: { eq: true } }
         ) {
             edges {
