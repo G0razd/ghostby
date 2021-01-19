@@ -51,9 +51,11 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                             </div>
                         ))}
                         <div>
-                            <button className="mx-3 inline-block px-6 py-4 hover:bg-primary-light font-medium leading-6 text-center text-gray-50 uppercase transition border-2 border-primary rounded-md bg-primary focus:outline-none">
-                                Přihlásit
-                            </button>
+                            <Link to="https://csutv.herokuapp.com/ghost/">
+                                <button className="mx-3 inline-block px-6 py-4 hover:bg-primary-light font-medium leading-6 text-center text-gray-50 uppercase transition border-2 border-primary rounded-md bg-primary focus:outline-none">
+                                    Přihlásit
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
