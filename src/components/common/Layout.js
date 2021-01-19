@@ -18,10 +18,6 @@ import "../../styles/app.css"
 
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     const site = data.allGhostSettings.edges[0].node
-    const facebookUrl = site.facebook
-        ? `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}`
-        : null
-
     return (
         <div className="bg-bgcolor overflow-x-hidden scrollbar-thin scrollbar scrollbar-thumb-rounded scrollbar-thumb-gray-700 scrollbar-track-gray-300">
             <Helmet>
@@ -31,16 +27,16 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
             </Helmet>
             {/* The main header section on top of the screen */}
             <header className="bg-gray-50 px-6 py-4 shadow mb-4">
-                <div className="flex flex-col container mx-auto md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-col container mx-auto md:flex-row items-center md:justify-between">
                     <Link to="/">
                         {site.logo ? (
                             <img
-                                className="object-contain h-20 feather feather-image"
+                                className="object-contain h-20 feather feather-image align-center"
                                 src={site.logo}
                                 alt={site.title}
                             />
                         ) : (
-                            isHome + facebookUrl
+                            isHome
                         )}
                     </Link>
                     <div className="md:flex flex-col md:flex-row md:-mx-4 hidden justify-self-end items-center space-x-5 ">
@@ -62,7 +58,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                     </div>
                 </div>
             </header>
-            <main className="container mx-auto min-h-80 my-20">
+            <main className=" min-h-80 my-20">
                 {/* All the main content gets inserted here, index.js, post.js */}
                 {children}
             </main>
@@ -71,10 +67,8 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                 <footer className=" px-6 py-5 bg-primary">
                     <div className="site-foot-nav container">
                         <div className="site-foot-nav-left text-gray-300 font-medium">
-                            <Link  to="/">
-                                {site.title}
-                            </Link>{` `}
-                            © 2020 &mdash; {}
+                            <Link to="/">{site.title}</Link>
+                            {` `}© 2020 &mdash; {}
                             {new Date().getFullYear()}
                         </div>
                     </div>

@@ -76,6 +76,7 @@
     "react-dom": "*",
     "react-helmet": "*",
     "sass": "^1.32.4",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "tailwind-plugin-line-clamp": "^1.0.1"
   }
 }

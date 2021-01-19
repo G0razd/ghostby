@@ -37,7 +37,7 @@ const Post = ({ data, location }) => {
                             <hr className=" w-100" />
                             {/* The main post content */ }
                             <section
-                                className="prose-xl text-4xl load-external-scripts"
+                                className="prose-xl text-3xl load-external-scripts"
                                 dangerouslySetInnerHTML={{ __html: post.html }}
                             />
                         </section>

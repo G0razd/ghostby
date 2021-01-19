@@ -9,8 +9,8 @@ const PostCard = ({ post }) => {
     const readingTime = readingTimeHelper(post)
 
     return (
-        <div className="w-full lg:w-1/2 md:px-4 my-4 lg:px-6 py-5 transition shadow-sm bg-gray-50 hover:shadow-lg rounded">
-            <Link to={url} className="post-card">
+        <div className="w-full lg:w-3/4 px-4 my-4 lg:px-6 py-5 transition shadow-sm bg-gray-50 hover:shadow-lg rounded">
+            <Link to={url} className="no-underline text-inherit m-2">
                 <header className="post-card-header">
                     <h2 className="m-0 p-0 mb-5 text-primary font-semibold text-3xl ">
                         {post.featured && `📌`} {post.title}
@@ -34,38 +34,48 @@ const PostCard = ({ post }) => {
                         </div>
                     )}
                 </header>
-                <section className="post-card-excerpt font-">
+                <section className="text-2xl overflow-ellipsis text - justify
+">
                     {post.excerpt}
                 </section>
 
                 <footer className="post-card-footer">
                     <div className="flex flex-wrap pt-8">
                         <div className="w-full md:w-1/3 text-sm font-medium">
-                            <div className="2/3">
-                                <div className="text-sm font-medium"></div>
-                            </div>
                         </div>
 
-                        {/* <div className="post-card-footer-left">
-                    <div className="post-card-avatar">
-                        {post.primary_author.profile_image ? (
-                            <img
-                                className="author-profile-image"
-                                src={post.primary_author.profile_image}
-                                alt={post.primary_author.name}
-                            />
-                        ) : (
-                            <img
-                                className="default-avatar"
-                                src="/images/icons/avatar.svg"
-                                alt={post.primary_author.name}
-                            />
-                        )}
-                        </div>
-                        <span>{ post.primary_author.name }</span> */}
+                        {
+                            <div className="post-card-footer-left">
+                                <div className="post-card-avatar">
+                                    {post.primary_author.profile_image ? (
+                                        <img
+                                            className="author-profile-image"
+                                            src={
+                                                post.primary_author
+                                                    .profile_image
+                                            }
+                                            alt={post.primary_author.name}
+                                        />
+                                    ) : (
+                                        <img
+                                            className="default-avatar"
+                                            src="/images/icons/avatar.svg"
+                                            alt={post.primary_author.name}
+                                        />
+                                    )}
+                                </div>
+                                <span>Autor: {post.primary_author.name}</span>{` `}
+                            </div>
+                        }
                     </div>
+
                     <div className="post-card-footer-right">
-                        <div>{readingTime}</div>
+                        <div>
+                            {readingTime.substring(
+                                0,
+                                readingTime.indexOf(`n`) + 1
+                            ) + ` četby`}
+                        </div>
                     </div>
                 </footer>
             </Link>
