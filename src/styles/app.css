@@ -285,7 +285,6 @@ html {
     overflow-y: auto;
     font-size: 62.5%;
     background: var(--color-base);
-
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 

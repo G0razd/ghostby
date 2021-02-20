@@ -2,8 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
-import { Layout, PostCard, Pagination, Carousel } from "../components/common"
+import { Layout, PostCard, Pagination, Card } from "../components/common"
 import { MetaData } from "../components/common/meta"
+import Carousel, { Dots } from "@brainhubeu/react-carousel"
+import "@brainhubeu/react-carousel/lib/style.css"
 
 /**
  * Main index page (home page)
@@ -16,23 +18,39 @@ import { MetaData } from "../components/common/meta"
 const Index = ({ data, location, pageContext }) => {
     const posts = data.posts.edges
     const featured = data.featured.edges
+    const partners = [
+        {
+            name: `Eupea`,
+            src: `https://eupea.com/wp-content/uploads/2017/11/eupea_logo_header.png`,
+            page: `https://eupea.com/`,
+        },
+        {
+            name: `EUUU`,
+            src: `https://eupea.com/wp-content/uploads/2017/11/eupea_logo_header.png`,
+            page: `https://eupea.com/`,
+        },
+        {
+            name: `UEUE`,
+            src: `https://eupea.com/wp-content/uploads/2017/11/eupea_logo_header.png`,
+            page: `https://eupea.com/`,
+        },
+    ]
 
     return (
         <>
             <MetaData location={location} />
             <Layout isHome={true}>
-                <div className ="mb-20">
-                    {featured.map(({ node }) => (
-                        <Carousel key={node.id} post={node} />
+                <Carousel className="mb-20">
+                    {featured.map(({ node, i }) => (
+                        <Card post={node} id={node.id} key={i} />
                     ))}
-                </div>
+                    <Dots value={0} number={2} />
+                </Carousel>
 
                 <div className="container mx-auto ">
                     <div>
-                        <h1>
-                           Naše články 
-                        </h1>
-                        <hr/>
+                        <h1>Naše články</h1>
+                        <hr />
                         {posts.map(({ node }) => (
                             // The tag below includes the markup for each post - components/common/PostCard.js
                             <PostCard
@@ -44,6 +62,13 @@ const Index = ({ data, location, pageContext }) => {
                     </div>
 
                     <Pagination pageContext={pageContext} />
+                    <Carousel>
+                        {partners.map((item, i) => (
+                            <a key={i} href={item.page}>
+                                <img src={item.src} alt={item.name} />
+                            </a>
+                        ))}
+                    </Carousel>
                 </div>
             </Layout>
         </>
@@ -54,6 +79,7 @@ Index.propTypes = {
     data: PropTypes.shape({
         posts: PropTypes.object.isRequired,
         featured: PropTypes.object.isRequired,
+        partners: PropTypes.object.isRequired,
     }).isRequired,
     location: PropTypes.shape({
         pathname: PropTypes.string.isRequired,
@@ -80,12 +106,22 @@ export const pageQuery = graphql`
         }
         featured: allGhostPost(
             sort: { order: DESC, fields: [published_at] }
-            limit: 1
+
             filter: { featured: { eq: true } }
         ) {
             edges {
                 node {
                     ...GhostPostFields
+                }
+            }
+        }
+
+        partners: allFile(filter: { relativeDirectory: { eq: "partners" } }) {
+            edges {
+                node {
+                    name
+                    publicURL
+                    relativePath
                 }
             }
         }

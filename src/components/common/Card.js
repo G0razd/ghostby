@@ -2,25 +2,25 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
-const Carousel = ({ post }) => {
+const Card = ({ post }) => {
     const url = `/${post.slug}/`
 
     return (
-        <div className="">
+        <div className="w-full">
             <div className="relative rounded-sm block md:flex items-center bg-gray-100 ">
-                <div className="relative w-full md:w-2/5 h-vh overflow-hidden rounded">
+                <div className="relative w-full md:w-2/5 h-vh overflow-hidden">
                     <img src={post.feature_image} alt="" />
                 </div>
                 <div className="w-full md:w-3/5 flex items-center bg-gray-100 ">
                     <div className="p-12 md:pr-24 md:pl-16  md:py-12">
-                        <p className="text-gray-600 text-justify">
+                        <div className="text-gray-600 text-justify">
                             <span className="text-gray-900 text-4xl m-0 p-0 mb-10 pb-10">
                                 {post.title}
                             </span>
                             <p className="prose-2xl overflow-elipse">
                                 {post.excerpt}
                             </p>
-                        </p>
+                        </div>
                         <Link
                             className="no-underline text-inherit m-2 flex items-baseline mt-3 text-secondary hover:text-primary focus:text-primary"
                             to={url}
@@ -43,7 +43,7 @@ const Carousel = ({ post }) => {
     )
 }
 
-Carousel.propTypes = {
+Card.propTypes = {
     post: PropTypes.shape({
         slug: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
@@ -62,4 +62,4 @@ Carousel.propTypes = {
     }).isRequired,
 }
 
-export default Carousel
+export default Card
