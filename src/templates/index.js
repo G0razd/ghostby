@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 
 import { Layout, PostCard, Pagination, Card } from "../components/common"
 import { MetaData } from "../components/common/meta"
-import Carousel, { Dots } from "@brainhubeu/react-carousel"
+
 import "@brainhubeu/react-carousel/lib/style.css"
 
 /**
@@ -17,37 +17,16 @@ import "@brainhubeu/react-carousel/lib/style.css"
  */
 const Index = ({ data, location, pageContext }) => {
     const posts = data.posts.edges
-    const featured = data.featured.edges
-    const partners = [
-        {
-            name: `Eupea`,
-            src: `https://eupea.com/wp-content/uploads/2017/11/eupea_logo_header.png`,
-            page: `https://eupea.com/`,
-        },
-        {
-            name: `EUUU`,
-            src: `https://eupea.com/wp-content/uploads/2017/11/eupea_logo_header.png`,
-            page: `https://eupea.com/`,
-        },
-        {
-            name: `UEUE`,
-            src: `https://eupea.com/wp-content/uploads/2017/11/eupea_logo_header.png`,
-            page: `https://eupea.com/`,
-        },
-    ]
+    const featured = data.featured
+    const partners = data.partners
 
     return (
         <>
             <MetaData location={location} />
             <Layout isHome={true}>
-                <Carousel className="mb-20">
-                    {featured.map(({ node, i }) => (
-                        <Card post={node} id={node.id} key={i} />
-                    ))}
-                    <Dots value={0} number={2} />
-                </Carousel>
+                <Card post={featured} />
 
-                <div className="container mx-auto ">
+                <div className="container mx-auto mt-20 ">
                     <div>
                         <h1>Naše články</h1>
                         <hr />
@@ -62,13 +41,15 @@ const Index = ({ data, location, pageContext }) => {
                     </div>
 
                     <Pagination pageContext={pageContext} />
-                    <Carousel>
-                        {partners.map((item, i) => (
-                            <a key={i} href={item.page}>
-                                <img src={item.src} alt={item.name} />
-                            </a>
-                        ))}
-                    </Carousel>
+
+                    <section className="mt-20" >
+                        <h1 className="text-40xl md:text-12xl text-center pb-20">{partners.title}</h1>
+                        {/* The main post content */}
+                        <section
+                            className="prose-xl text-3xl text-center load-external-scripts"
+                            dangerouslySetInnerHTML={{ __html: partners.html }}
+                        />
+                    </section>
                 </div>
             </Layout>
         </>
@@ -104,26 +85,13 @@ export const pageQuery = graphql`
                 }
             }
         }
-        featured: allGhostPost(
-            sort: { order: DESC, fields: [published_at] }
-
-            filter: { featured: { eq: true } }
-        ) {
-            edges {
-                node {
-                    ...GhostPostFields
-                }
-            }
+        featured: ghostPost(featured: { eq: true }) {
+            ...GhostPostFields
         }
 
-        partners: allFile(filter: { relativeDirectory: { eq: "partners" } }) {
-            edges {
-                node {
-                    name
-                    publicURL
-                    relativePath
-                }
-            }
+        partners: ghostPage(slug: { eq: "partneri" }) {
+            title
+            html
         }
     }
 `

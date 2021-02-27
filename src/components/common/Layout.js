@@ -18,6 +18,7 @@ import "../../styles/app.css"
 
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     const site = data.allGhostSettings.edges[0].node
+    const pad = isHome? "" : "my-20"
     return (
         <div className="bg-bgcolor overflow-x-hidden scrollbar-thin scrollbar scrollbar-thumb-rounded scrollbar-thumb-gray-700 scrollbar-track-gray-300">
             <Helmet>
@@ -26,7 +27,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                 <body className={bodyClass} />
             </Helmet>
             {/* The main header section on top of the screen */}
-            <header className="bg-gray-50 px-6 py-4 shadow mb-4">
+            <header className="bg-gray-50 px-6 py-4 shadow">
                 <div className="flex flex-col container mx-auto md:flex-row items-center md:justify-between">
                     <Link to="/">
                         {site.logo ? (
@@ -60,7 +61,9 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                     </div>
                 </div>
             </header>
-            <main className=" min-h-80 my-20">
+            <main
+                className={` min-h-80 ` + pad}
+            >
                 {/* All the main content gets inserted here, index.js, post.js */}
                 {children}
             </main>

@@ -7,18 +7,18 @@ const Card = ({ post }) => {
 
     return (
         <div className="w-full">
-            <div className="relative rounded-sm block md:flex items-center bg-gray-100 ">
+            <div className="relative rounded-sm block md:flex bg-gray-100 ">
                 <div className="relative w-full md:w-2/5 h-vh overflow-hidden">
                     <img src={post.feature_image} alt="" />
                 </div>
-                <div className="w-full md:w-3/5 flex items-center bg-gray-100 ">
-                    <div className="p-12 md:pr-24 md:pl-16  md:py-12">
-                        <div className="text-gray-600 text-justify">
-                            <span className="text-gray-900 text-4xl m-0 p-0 mb-10 pb-10">
+                <div className="w-full md:w-3/5 flex bg-gray-100 ">
+                    <div className="p-12 md:pr-24 md:pl-16  ">
+                        <div className="text-gray-600 text-justify position-relative">
+                            <span className="text-gray-900 text-5xl m-0 p-0 mb-10 pb-10">
                                 {post.title}
                             </span>
-                            <p className="prose-2xl overflow-elipse">
-                                {post.excerpt}
+                            <p className="mt-10 pt-10 prose-xl text-3xl overflow-elipse">
+                                {post.excerpt + `...`}
                             </p>
                         </div>
                         <Link

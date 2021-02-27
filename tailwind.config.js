@@ -22,7 +22,7 @@ module.exports = {
         },
         extend: {
             height: {
-                vh: `80vh`,
+                vh: `85vh`,
             },
         },
     },

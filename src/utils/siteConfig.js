@@ -13,4 +13,5 @@ module.exports = {
     siteIcon: `favicon.png`, // Logo in /static dir used for SEO, RSS, and App manifest
     backgroundColor: `#f5f5f5`, // Used for Offline Manifest
     themeColor: `#BA3442`, // Used for Offline Manifest
+
 }
